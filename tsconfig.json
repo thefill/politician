@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "sourceMap": true,
+        "declaration": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "es6",
+            "es7"
+        ],
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "compileOnSave": false
+}

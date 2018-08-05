@@ -1,0 +1,45 @@
+{
+    "name": "politician-monorepo",
+    "version": "0.0.1",
+    "description": "Active mock server",
+    "scripts": {
+        "// DEV SCRIPTS //": "----------------------------------------------",
+        "start": "npm run build && node dist/example/index.js",
+        "build": "lerna run build",
+        "build:watch": "lerna run  --parallel build:watch",
+        "lint": "tslint --project src",
+        "test": "jasmine-ts --config=jasmine.unit.json",
+        "debug": "node --inspect --debug-brk dist/example/index.js",
+        "// UTILS SCRIPTS //": "----------------------------------------------",
+        "deploy": "gh-pages -d site -b master",
+        "clean": "run-p rimraf site ",
+        "clean:site": "rimraf site",
+        "bootstrap": "lerna bootstrap --hoist",
+        "git-add": "git add .",
+        "precommit": "run-s build lint test git-add",
+        "prepush": "run-s lint test"
+    },
+    "dependencies": {
+        "@types/jasmine": "^2.8.8",
+        "@types/node": "^6.0.0",
+        "gh-pages": "^1.1.0",
+        "husky": "^0.14.3",
+        "jasmine": "^3.1.0",
+        "jasmine-core": "^3.1.0",
+        "jasmine-ts": "^0.2.1",
+        "lerna": "^3.0.0-rc.0",
+        "rimraf": "^2.6.2",
+        "tslint": "^5.9.1",
+        "typescript": "^2.9.2",
+        "npm-watch": "^0.3.0"
+    },
+    "engines": {
+        "node": ">=6.1"
+    },
+    "author": "Filip Dabrowski",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:thefill/politician.git"
+    },
+    "license": "MIT"
+}

@@ -1,0 +1,22 @@
+{
+    "name": "@politician/dashboard",
+    "version": "0.0.1",
+    "description": "Dashboard for Politician active mock server",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+        "start": "echo Start",
+        "test": "echo Test"
+    },
+    "dependencies": {
+        "@politician/server": "^0.0.1"
+    },
+    "devDependencies": {
+    },
+    "author": "Filip Dabrowski",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:thefill/politician.git"
+    },
+    "license": "MIT"
+}

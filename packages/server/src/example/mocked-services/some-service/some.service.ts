@@ -1,0 +1,60 @@
+import {NextFunction, Request, Response} from 'express';
+import {BaseRequestHandler, RequestMethods} from '../../../';
+
+export class SomeService extends BaseRequestHandler {
+    // TODO: complete
+    public basePath = 'some-service';
+    public endpoints = {
+        'some-url/:id': {
+            handler: (
+                request: Request,
+                response: Response,
+                next: NextFunction,
+                endUrl: string,
+                urlParams: { [paramName: string]: any }
+            ) => {
+                response.status(200)
+                        .send({
+                            handler: 'some-url',
+                            endUrl: endUrl,
+                            urlParams: urlParams
+                        });
+            },
+            methods: [RequestMethods.GET]
+        },
+        'another-url/:id': {
+            handler: (
+                request: Request,
+                response: Response,
+                next: NextFunction,
+                endUrl: string,
+                urlParams: { [paramName: string]: any }
+            ) => {
+                response.status(200)
+                        .send({
+                            handler: 'another-url',
+                            endUrl: endUrl,
+                            urlParams: urlParams
+                        });
+            },
+            methods: [RequestMethods.GET]
+        },
+        'yet-another-url/:id': {
+            handler: (
+                request: Request,
+                response: Response,
+                next: NextFunction,
+                endUrl: string,
+                urlParams: { [paramName: string]: any }
+            ) => {
+                response.status(200)
+                        .send({
+                            handler: 'yet-another-url',
+                            endUrl: endUrl,
+                            urlParams: urlParams
+                        });
+            },
+            methods: [RequestMethods.GET]
+        }
+    };
+}

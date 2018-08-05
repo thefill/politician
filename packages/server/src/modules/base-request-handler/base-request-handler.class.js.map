@@ -1,0 +1,1 @@
+{"version":3,"file":"base-request-handler.class.js","sourceRoot":"","sources":["base-request-handler.class.ts"],"names":[],"mappings":";;AAMA;IAcI,YAAY,KAAuB;QAC/B,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACvB,CAAC;IAMM,UAAU;QACb,OAAO;YACH,QAAQ,EAAE,IAAI,CAAC,QAAQ;YACvB,SAAS,EAAE,MAAM,CAAC,IAAI,CAAC,IAAI,CAAC,SAAS,CAAC;SACf,CAAC;IAChC,CAAC;CACJ;AA5BD,gDA4BC"}
