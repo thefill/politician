@@ -1,25 +1,20 @@
 {
-    "name": "@politician/server",
-    "description": "Active mock server",
+    "name": "@politician/example",
+    "description": "Example of usign active mock server",
     "version": "0.0.1",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "typings": "dist/esm/index.d.ts",
     "scripts": {
+        "start": "node dist/cjs/index.js",
         "build": "run-s clean build:esm build:cjs",
+        "build:start": "run-s build start",
         "build:esm": "tsc -p tsconfig.esm.json",
         "build:cjs": "tsc -p tsconfig.cjs.json",
         "clean": "rimraf dist"
     },
     "dependencies": {
-        "body-parser": "^1.18.3",
-        "cors": "^2.8.4",
-        "express": "^4.16.3",
-        "route-pattern": "^0.0.6",
-        "chalk": "^2.4.1"
-    },
-    "devDependencies": {
-        "@types/express": "^4.16.0"
+        "@politician/server": "^0.0.1"
     },
     "engines": {
         "node": ">=6.1"

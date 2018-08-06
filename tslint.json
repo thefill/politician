@@ -8,10 +8,13 @@
         "ordered-imports": false,
         "no-trailing-whitespace": false,
         "object-literal-sort-keys": false,
-        "object-literal-shorthand": false
+        "object-literal-shorthand": false,
+        "one-line": false
     },
     "linterOptions": {
         "exclude": [
+            "packages/**/*.d.ts",
+            "dist/**/*.d.ts",
             "node_modules/**/*.ts",
             "packages/**/node_modules/**/*.ts"
         ]

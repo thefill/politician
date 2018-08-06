@@ -18,7 +18,7 @@ export abstract class BaseRequestHandler {
      * Constructor that accepts store used internally
      * @param store
      */
-    constructor(store: StoreModule<any>) {
+    constructor(store: StoreModule<any>){
         this.store = store;
     }
 
@@ -26,7 +26,7 @@ export abstract class BaseRequestHandler {
      * Get base request handler service summary
      * @returns {IRequestHandlerSummary}
      */
-    public getSummary(): IRequestHandlerSummary {
+    public getSummary(): IRequestHandlerSummary{
         return {
             basePath: this.basePath,
             endpoints: Object.keys(this.endpoints)

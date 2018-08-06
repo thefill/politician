@@ -4,10 +4,7 @@
     "description": "Dashboard for Politician active mock server",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
-    "scripts": {
-        "start": "echo Start",
-        "test": "echo Test"
-    },
+    "scripts": {},
     "dependencies": {
         "@politician/server": "^0.0.1"
     },

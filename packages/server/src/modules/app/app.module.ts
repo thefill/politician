@@ -25,7 +25,7 @@ export class AppModule {
      */
     constructor(
         availableServices: StoreModule<new (store: StoreModule<any>) => BaseRequestHandler>
-    ) {
+    ){
         // Set port we listen to, use provided port via process.env.MOCK_API_PORT, defaults to 3000
         const port = process.env.MOCK_API_PORT ? parseInt(
             process.env.MOCK_API_PORT as string,
@@ -74,7 +74,7 @@ export class AppModule {
      */
     protected createServices(
         services: StoreModule<new (store: StoreModule<any>) => BaseRequestHandler>
-    ): StoreModule<BaseRequestHandler> {
+    ): StoreModule<BaseRequestHandler>{
         const initialValues = {};
         services.keys()
                 .forEach((key) => {
@@ -89,7 +89,7 @@ export class AppModule {
      * Create system dashboard service
      * @returns {BaseRequestHandler}
      */
-    protected createDashboardService(): DashboardService {
+    protected createDashboardService(): DashboardService{
         return new DashboardService(this.dataStore);
     }
 
@@ -99,7 +99,7 @@ export class AppModule {
      */
     protected printSummary(
         available: IRequestHandlerSummary[]
-    ) {
+    ){
         // parse available mocked-services to colorful list
         const parsedAvailable = available.map((service) => {
             // prettify name

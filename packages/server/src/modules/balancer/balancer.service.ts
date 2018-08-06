@@ -23,7 +23,7 @@ export class BalancerService {
     constructor(
         baseUrl: string,
         services: StoreModule<BaseRequestHandler>
-    ) {
+    ){
         this.baseUrl = baseUrl;
 
         // create all serviceStore
@@ -40,7 +40,7 @@ export class BalancerService {
         request: Request,
         response: Response,
         next: NextFunction
-    ): void {
+    ): void{
         // TODO: what about websocket???
         // get request method and url without base
         const method: RequestMethods = RequestMethods[request.method];
@@ -51,7 +51,7 @@ export class BalancerService {
             method,
             url
         );
-        if (endpointConfig && endpointConfig.endpoint) {
+        if (endpointConfig && endpointConfig.endpoint){
             endpointConfig.endpoint.handler(
                 request,
                 response,
@@ -68,7 +68,7 @@ export class BalancerService {
      * Retrieve list of available service mocks
      * @returns {IRequestHandlerSummary[]}
      */
-    public getAvailableMocks(): IRequestHandlerSummary[] {
+    public getAvailableMocks(): IRequestHandlerSummary[]{
         return this.serviceStore.keys()
                    .map((key) => {
                        const summary = this.serviceStore.get(key)
@@ -88,7 +88,7 @@ export class BalancerService {
     protected findEndpoint(
         method: RequestMethods,
         url: string
-    ): IEndpointMatchResult | void {
+    ): IEndpointMatchResult | void{
         const urlPartials = url.split('/');
 
         // get first service that have base path
@@ -96,7 +96,7 @@ export class BalancerService {
                                .find((key) => {
                                    return this.serviceStore.get(key).basePath === urlPartials[0];
                                });
-        if (!serviceKey) {
+        if (!serviceKey){
             return;
         }
         const service = this.serviceStore.get(serviceKey);
@@ -114,7 +114,7 @@ export class BalancerService {
 
                                       // does route and requestUrl match?
                                       const match = routePattern.match(requestUrl);
-                                      if (match) {
+                                      if (match){
                                           // get data
                                           Object.assign(
                                               extractedUrlParams,
@@ -125,7 +125,7 @@ export class BalancerService {
                                           return false;
                                       }
                                   });
-        if (!endpointKey) {
+        if (!endpointKey){
             return;
         }
         const endpoint: IEndpointHandlerConfig = service.endpoints[endpointKey];
