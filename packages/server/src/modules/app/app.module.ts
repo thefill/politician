@@ -4,6 +4,7 @@ import {BaseRequestHandler, IRequestHandlerSummary} from '../base-request-handle
 import {DashboardService} from '../dashboard';
 import {ServerModule} from '../server';
 import {StoreModule} from '../store';
+import {IAppConfig} from './app.interface';
 
 const color = Chalk.default;
 
@@ -22,19 +23,13 @@ export class AppModule {
 
     /**
      * Create new server
+     * @param {StoreModule<{new(store: StoreModule<any>): BaseRequestHandler}>} availableServices
+     * @param {IAppConfig} config
      */
     constructor(
-        availableServices: StoreModule<new (store: StoreModule<any>) => BaseRequestHandler>
+        availableServices: StoreModule<new (store: StoreModule<any>) => BaseRequestHandler>,
+        config: IAppConfig = {}
     ){
-        // Set port we listen to, use provided port via process.env.MOCK_API_PORT, defaults to 3000
-        const port = process.env.MOCK_API_PORT ? parseInt(
-            process.env.MOCK_API_PORT as string,
-            10
-        ) : 3000;
-
-        // set base service url provided via process.env.MOCK_API_BASE_URL, defaults to 'api'
-        const urlBase = process.env.MOCK_API_BASE_URL ? process.env.MOCK_API_BASE_URL as string : 'api';
-
         // create store
         this.dataStore = new StoreModule({});
 
@@ -47,23 +42,23 @@ export class AppModule {
             this.dashboardService
         );
         this.balancer = new BalancerService(
-            urlBase,
-            services
+            services,
+            config.apiBaseUrl
         );
 
         // Instantiate server
         this.server = new ServerModule(
-            port,
-            urlBase,
-            this.balancer
+            this.balancer,
+            config.apiPort,
+            config.apiBaseUrl
         );
         this.server.init()
             .then(() => {
                 // get service summary, exclude dashboard service
                 const summary = this.balancer.getAvailableMocks()
-                                    .filter((available) => {
-                                        return available.basePath !== this.dashboardService.basePath;
-                                    });
+                    .filter((available) => {
+                        return available.basePath !== this.dashboardService.basePath;
+                    });
                 this.printSummary(summary);
             });
     }
@@ -77,10 +72,10 @@ export class AppModule {
     ): StoreModule<BaseRequestHandler>{
         const initialValues = {};
         services.keys()
-                .forEach((key) => {
-                    const service = services.get(key);
-                    initialValues[key] = new service(this.dataStore);
-                });
+            .forEach((key) => {
+                const service = services.get(key);
+                initialValues[key] = new service(this.dataStore);
+            });
 
         return new StoreModule<BaseRequestHandler>(initialValues);
     }
@@ -102,15 +97,18 @@ export class AppModule {
     ){
         // parse available mocked-services to colorful list
         const parsedAvailable = available.map((service) => {
-            // prettify name
-            const name = color.magenta(' ⇄ ' + service.basePath) + '\r\n';
-            // prettify endpoints
-            let endpoints: any = service.endpoints;
-            endpoints = endpoints && endpoints.length ?
-                color.yellow('   ⤷ ' + service.endpoints.join('\r\n   ⤷ ')) : '';
-            return name + endpoints;
-        })
-                                         .join('\r\n');
+                // prettify name
+                const name = color.magenta(' ⇄ ' + service.basePath) + '\r\n';
+                // prettify endpoints
+                let endpoints: any = service.endpoints;
+                endpoints = endpoints && endpoints.length ?
+                    color.yellow('   ⤷ ' + service.endpoints.join('\r\n   ⤷ ')) : '';
+                return name + endpoints;
+            })
+            .join('\r\n');
+
+        // TODO: add info which methods are available for the endpoints (GET / POST / PATCH / PUT)
+        // TODO: add info about prefix for the url like 'api' in example
 
         /* tslint:disable */
         console.log(color.grey('--------------------------------------------------------\r\n'));

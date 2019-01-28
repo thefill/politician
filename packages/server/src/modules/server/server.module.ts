@@ -19,15 +19,18 @@ export class ServerModule {
     // Balancer that routes requests to specific service mocks
     private balancer: BalancerService;
     // Base service url provided via process.env.MOCK_API_BASE_URL, defaults to 'api'
-    private urlBase: string;
+    private readonly urlBase: string | void;
 
     /**
      * Create new server
+     * @param {BalancerService} balancer
+     * @param {number} port  service port, defaults to 3000
+     * @param {string} urlBase base service url, defaults to none
      */
     constructor(
-        port: number,
-        urlBase: string,
-        balancer: BalancerService
+        balancer: BalancerService,
+        port = 3000,
+        urlBase?: string,
     ){
         // TODO: accept list of paths to static files and add them in setup (loop + app.use path >
         // response.sendfile(__dirname + '/index.html');)
@@ -86,9 +89,12 @@ export class ServerModule {
         // allow CORS
         this.server.use(cors());
 
+        // build url catch rule
+        const catchRule = this.urlBase && this.urlBase.length ? `/${this.urlBase}/*` : `/*`;
+
         // serve any trafic that hits urlBase and pass to generic handler
         this.server.all(
-            `/${this.urlBase}/*`,
+            catchRule,
             this.handleAll.bind(this)
         );
 

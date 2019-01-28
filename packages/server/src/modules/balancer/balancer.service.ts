@@ -13,16 +13,17 @@ import {IEndpointMatchResult} from './balancer.interface';
  * Module routes requests to correct mocked-serviceStore
  */
 export class BalancerService {
-    protected baseUrl: string;
+    protected baseUrl: string | void;
     protected serviceStore: StoreModule<BaseRequestHandler>;
 
     /**
      * Constructor
-     * @param {string} baseUrl
+     * @param {StoreModule<BaseRequestHandler>} services
+     * @param {string | void} baseUrl
      */
     constructor(
-        baseUrl: string,
-        services: StoreModule<BaseRequestHandler>
+        services: StoreModule<BaseRequestHandler>,
+        baseUrl: string | void,
     ){
         this.baseUrl = baseUrl;
 
@@ -44,7 +45,10 @@ export class BalancerService {
         // TODO: what about websocket???
         // get request method and url without base
         const method: RequestMethods = RequestMethods[request.method];
-        const url = request.url.substr(this.baseUrl.length + 2);
+
+        // to get request url we need to remove from request the url prefix aka baseUrl
+        const baseUrlTotalLength = this.baseUrl && this.baseUrl.length ? this.baseUrl.length + 2 : 1;
+        const url = request.url.substr(baseUrlTotalLength);
 
         // find service handler for matching url and let it handle request from there, else 404
         const endpointConfig = this.findEndpoint(
