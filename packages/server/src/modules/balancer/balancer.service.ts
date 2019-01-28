@@ -23,7 +23,7 @@ export class BalancerService {
      */
     constructor(
         services: StoreModule<BaseRequestHandler>,
-        baseUrl: string | void,
+        baseUrl: string | void
     ){
         this.baseUrl = baseUrl;
 
@@ -74,14 +74,14 @@ export class BalancerService {
      */
     public getAvailableMocks(): IRequestHandlerSummary[]{
         return this.serviceStore.keys()
-                   .map((key) => {
-                       const summary = this.serviceStore.get(key)
-                                           .getSummary();
-                       return {
-                           basePath: summary.basePath,
-                           endpoints: summary.endpoints
-                       };
-                   });
+            .map((key) => {
+                const summary = this.serviceStore.get(key)
+                    .getSummary();
+                return {
+                    basePath: summary.basePath,
+                    endpoints: summary.endpoints
+                };
+            });
     }
 
     /**
@@ -97,9 +97,9 @@ export class BalancerService {
 
         // get first service that have base path
         const serviceKey = this.serviceStore.keys()
-                               .find((key) => {
-                                   return this.serviceStore.get(key).basePath === urlPartials[0];
-                               });
+            .find((key) => {
+                return this.serviceStore.get(key).basePath === urlPartials[0];
+            });
         if (!serviceKey){
             return;
         }
@@ -113,22 +113,22 @@ export class BalancerService {
         const requestUrl = urlPartials.join('/');
         const extractedUrlParams = {};
         const endpointKey = Object.keys(service.endpoints)
-                                  .find((route) => {
-                                      const routePattern = RoutePattern.fromString(route);
+            .find((route) => {
+                const routePattern = RoutePattern.fromString(route);
 
-                                      // does route and requestUrl match?
-                                      const match = routePattern.match(requestUrl);
-                                      if (match){
-                                          // get data
-                                          Object.assign(
-                                              extractedUrlParams,
-                                              match.namedParams
-                                          );
-                                          return true;
-                                      } else {
-                                          return false;
-                                      }
-                                  });
+                // does route and requestUrl match?
+                const match = routePattern.match(requestUrl);
+                if (match){
+                    // get data
+                    Object.assign(
+                        extractedUrlParams,
+                        match.namedParams
+                    );
+                    return true;
+                } else {
+                    return false;
+                }
+            });
         if (!endpointKey){
             return;
         }

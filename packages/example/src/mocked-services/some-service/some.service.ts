@@ -3,6 +3,7 @@ import {NextFunction, Request, Response} from 'express';
 
 export class SomeService extends BaseRequestHandler {
     // TODO: complete
+    // TODO: implement socket service mock
     public basePath = 'some-service';
     public endpoints = {
         'some-url/:id': {

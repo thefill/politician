@@ -72,7 +72,6 @@ export class StoreModule<T> {
     /**
      * Get multiple values
      * @param {Array<string | number>} keys
-     * @returns {T[]}
      */
     public deleteMultiple(keys: Array<string | number>): void{
         // if multiple values

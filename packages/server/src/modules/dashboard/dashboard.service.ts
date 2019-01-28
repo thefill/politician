@@ -5,6 +5,7 @@ import {BaseRequestHandler, RequestMethods} from '../base-request-handler';
 // - disabling service mocks
 // - changing served data per endpoint
 // - changing response code per endpoint
+// - list calls
 export class DashboardService extends BaseRequestHandler {
     // TODO: complete
     public basePath = 'dashboard';
@@ -19,11 +20,11 @@ export class DashboardService extends BaseRequestHandler {
             ) => {
                 // TODO: serve website
                 response.status(200)
-                        .send({
-                            handler: 'dashboard root',
-                            endUrl: endUrl,
-                            urlParams: urlParams
-                        });
+                    .send({
+                        handler: 'dashboard root',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
             },
             methods: [RequestMethods.GET]
         },
@@ -36,11 +37,11 @@ export class DashboardService extends BaseRequestHandler {
                 urlParams: { [paramName: string]: any }
             ) => {
                 response.status(200)
-                        .send({
-                            handler: 'mobility-tasks',
-                            endUrl: endUrl,
-                            urlParams: urlParams
-                        });
+                    .send({
+                        handler: 'mobility-tasks',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
             },
             methods: [RequestMethods.GET]
         }

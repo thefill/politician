@@ -30,7 +30,7 @@ export class ServerModule {
     constructor(
         balancer: BalancerService,
         port = 3000,
-        urlBase?: string,
+        urlBase?: string
     ){
         // TODO: accept list of paths to static files and add them in setup (loop + app.use path >
         // response.sendfile(__dirname + '/index.html');)
@@ -64,15 +64,15 @@ export class ServerModule {
 
         // Extract IP
         Object.keys(networkInterfaces)
-              .forEach((name) => {
-                  networkInterfaces[name].forEach((networkInterface) => {
-                      if ('IPv4' !== networkInterface.family || networkInterface.internal){
-                          // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-                          return;
-                      }
-                      ips.push(networkInterface.address);
-                  });
-              });
+            .forEach((name) => {
+                networkInterfaces[name].forEach((networkInterface) => {
+                    if ('IPv4' !== networkInterface.family || networkInterface.internal){
+                        // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+                        return;
+                    }
+                    ips.push(networkInterface.address);
+                });
+            });
 
         // get last one (as usually its 192...)
         return ips[ips.length - 1];
@@ -126,7 +126,7 @@ export class ServerModule {
         next: NextFunction
     ){
         response.status(404)
-                .send();
+            .send();
         response.end();
     }
 
@@ -144,7 +144,7 @@ export class ServerModule {
         next: NextFunction
     ){
         response.status(500)
-                .send();
+            .send();
         response.end();
     }
 
