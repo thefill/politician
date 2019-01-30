@@ -56,6 +56,25 @@ export class SomeService extends BaseRequestHandler {
                         });
             },
             methods: [RequestMethods.GET]
+        },
+        'socket-test/': {
+            handler: (
+                request: Request,
+                response: Response,
+                next: NextFunction,
+                endUrl: string,
+                urlParams: { [paramName: string]: any }
+            ) => {
+                // TODO: add socket support
+                response.status(200)
+                    .send({
+                        handler: 'yet-another-url',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
+
+            },
+            methods: [RequestMethods.GET]
         }
     };
 }

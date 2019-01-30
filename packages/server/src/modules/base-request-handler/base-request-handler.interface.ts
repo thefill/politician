@@ -34,6 +34,7 @@ export type EndpointRequestHandler = (
  */
 export interface IEndpointHandlerConfig {
     // callback to handle request
+    // TODO: add 400,500... request handlers in some way (convert handler to object with handler props?)
     handler: EndpointRequestHandler;
     // accepted methods
     methods: RequestMethods[];

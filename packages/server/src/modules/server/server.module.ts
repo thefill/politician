@@ -92,7 +92,7 @@ export class ServerModule {
         // build url catch rule
         const catchRule = this.urlBase && this.urlBase.length ? `/${this.urlBase}/*` : `/*`;
 
-        // serve any trafic that hits urlBase and pass to generic handler
+        // serve any traffic that hits urlBase and pass to generic handler
         this.server.all(
             catchRule,
             this.handleAll.bind(this)
