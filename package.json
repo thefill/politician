@@ -36,6 +36,13 @@
         }
     },
     "dependencies": {
+        "body-parser": "1.19.0",
+        "chalk": "2.4.2",
+        "cors": "2.8.5",
+        "express": "4.17.1",
+        "route-pattern": "0.0.6"
+    },
+    "devDependencies": {
         "@types/jest": "^23.3.1",
         "@types/node": "^6.0.0",
         "gh-pages": "^1.1.0",

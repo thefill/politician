@@ -43,7 +43,7 @@ export class BalancerService {
     ): void{
         // TODO: what about websocket???
         // get request method and url without base
-        const method: RequestMethods = RequestMethods[request.method];
+        const method: RequestMethods = request.method as RequestMethods;
         const url = request.url.substr(this.baseUrl.length + 2);
 
         // find service handler for matching url and let it handle request from there, else 404
