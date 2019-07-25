@@ -1,4 +1,4 @@
-export * from './some-service/index';
+export * from './some-service';
 import {BaseRequestHandler, StoreModule} from '@politician/server';
 import {SomeService} from './some-service';
 

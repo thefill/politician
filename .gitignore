@@ -1,20 +1,22 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-node_modules
+node_modules/
 
-# testing
-/coverage
-
-# production
-/build
-/dist
+# tmp dirs
+build/
+reports/
+dist/
+docs/
+!src/docs/
 **/dist/
-
+cache/
+.cache
+API-README.md
+BASE-README.md
 
 # misc
-/.idea
+.idea/
 .DS_Store
 .env.local
 .env.development.local

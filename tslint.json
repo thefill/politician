@@ -1,7 +1,10 @@
 {
-    "extends": [
-        "tslint:recommended"
-    ],
+    "extends": ["tslint:recommended"],
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**/*.ts"
+        ]
+    },
     "rules": {
         "quotemark": false,
         "trailing-comma": false,
@@ -10,13 +13,5 @@
         "object-literal-sort-keys": false,
         "object-literal-shorthand": false,
         "one-line": false
-    },
-    "linterOptions": {
-        "exclude": [
-            "packages/**/*.d.ts",
-            "dist/**/*.d.ts",
-            "node_modules/**/*.ts",
-            "packages/**/node_modules/**/*.ts"
-        ]
     }
 }

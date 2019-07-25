@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+// Setup Xargv CLI
+// tslint:disable
+require = require('esm')(module /*, options*/);
+const Xargv = require('../dist/cjs/index.js').Xargv;
+// tslint:enable
+const xargv = new Xargv();
+// init Xargv CLI
+xargv.init(process.argv);
