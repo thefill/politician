@@ -7,7 +7,7 @@
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
     "scripts": {
-        "start": "run-s build start:example",
+        "start": "build start:example",
         "watch": "npm-watch build",
         "build": "run-s -s clean:build build:esm build:cjs",
         "build:esm": "tsc -p tsconfig.esm.json",
@@ -57,7 +57,17 @@
         "chalk": "2.4.2",
         "cors": "2.8.5",
         "express": "4.17.1",
-        "route-pattern": "0.0.6"
+        "route-pattern": "0.0.6",
+
+
+
+
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "route-pattern": "^0.0.6",
+        "chalk": "^2.4.1",
+        "@types/express": "^4.16.0"
     },
     "devDependencies": {
         "@types/jest": "24.0.13",
@@ -90,7 +100,17 @@
         "rimraf": "^2.6.2",
         "ts-jest": "^23.1.2",
         "tslint": "^5.9.1",
-        "typescript": "^2.9.2"
+        "typescript": "^2.9.2",
+
+
+
+
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "route-pattern": "^0.0.6",
+        "chalk": "^2.4.1",
+        "@types/express": "^4.16.0"
     },
     "engines": {
         "node": ">=8.x.x"
