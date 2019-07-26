@@ -1,11 +1,16 @@
 import {NextFunction, Request, Response} from 'express';
-import {BaseRequestHandler, RequestMethods} from '../../../../src';
+import {RequestMethods} from '../../enums';
+import {BaseRequestHandler} from '../base-request-handler';
 
-export class SomeService extends BaseRequestHandler {
+// TODO: server should serve app on /dashboard/ that allows:
+// - disabling service mocks
+// - changing served data per endpoint
+// - changing response code per endpoint
+export class DashboardRequestHandler extends BaseRequestHandler {
     // TODO: complete
-    public basePath = 'some-service';
+    public basePath = 'dashboard';
     public endpoints = {
-        'some-url/:id': {
+        '/': {
             handler: (
                 request: Request,
                 response: Response,
@@ -13,16 +18,17 @@ export class SomeService extends BaseRequestHandler {
                 endUrl: string,
                 urlParams: { [paramName: string]: any }
             ) => {
+                // TODO: serve website
                 response.status(200)
                     .send({
-                        handler: 'some-url',
+                        handler: 'dashboard root',
                         endUrl: endUrl,
                         urlParams: urlParams
                     });
             },
             methods: [RequestMethods.GET]
         },
-        'another-url/:id': {
+        'action/:id': {
             handler: (
                 request: Request,
                 response: Response,
@@ -32,24 +38,7 @@ export class SomeService extends BaseRequestHandler {
             ) => {
                 response.status(200)
                     .send({
-                        handler: 'another-url',
-                        endUrl: endUrl,
-                        urlParams: urlParams
-                    });
-            },
-            methods: [RequestMethods.GET]
-        },
-        'yet-another-url/:id': {
-            handler: (
-                request: Request,
-                response: Response,
-                next: NextFunction,
-                endUrl: string,
-                urlParams: { [paramName: string]: any }
-            ) => {
-                response.status(200)
-                    .send({
-                        handler: 'yet-another-url',
+                        handler: 'mobility-tasks',
                         endUrl: endUrl,
                         urlParams: urlParams
                     });

@@ -1,0 +1,1 @@
+export {Politician} from './politician';

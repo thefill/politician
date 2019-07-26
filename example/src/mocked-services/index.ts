@@ -1,13 +1,13 @@
 export * from './some-service';
-import {BaseRequestHandler} from '../../../src/server/modules/base-request-handler';
-import {StoreModule} from '../../../src/server/modules/store';
+import {BaseRequestHandler} from '../../../src/classes/base-request-handler';
+import {StoreService} from '../../../src/services/store';
 import {SomeService} from './some-service';
 
 /**
  * List of available services
  * @type {{SomeService: SomeService}}
  */
-const availableServices: StoreModule<new (store: StoreModule<any>) => BaseRequestHandler> = new StoreModule({
+const availableServices: StoreService<new (store: StoreService<any>) => BaseRequestHandler> = new StoreService({
     PollService: SomeService
 });
 
