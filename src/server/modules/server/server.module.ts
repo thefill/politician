@@ -1,7 +1,6 @@
 import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
-import * as Server from 'express';
-import {Application, NextFunction, Request, Response} from 'express';
+import cors from 'cors';
+import ExpressServer, {Application, NextFunction, Request, Response} from 'express';
 import * as os from "os";
 import {BalancerService} from '../balancer';
 
@@ -14,12 +13,12 @@ export class ServerModule {
     public port: number;
     // IP we listen to, use provided port via process.env.MOCK_API_PORT, defaults to 3000
     public ip: string;
-    // Main serever
-    private server: Application;
-    // Balancer that routes requests to specific service mocks
-    private balancer: BalancerService;
     // Base service url provided via process.env.MOCK_API_BASE_URL, defaults to 'api'
-    private urlBase: string;
+    public urlBase: string;
+    // Main serever
+    protected server: Application;
+    // Balancer that routes requests to specific service mocks
+    protected balancer: BalancerService;
 
     /**
      * Create new server
@@ -28,7 +27,7 @@ export class ServerModule {
         port: number,
         urlBase: string,
         balancer: BalancerService
-    ){
+    ) {
         // TODO: accept list of paths to static files and add them in setup (loop + app.use path >
         // response.sendfile(__dirname + '/index.html');)
         this.port = port;
@@ -37,14 +36,14 @@ export class ServerModule {
         this.ip = this.getIp();
 
         // Create and setup server
-        this.server = Server();
+        this.server = ExpressServer();
     }
 
     /**
      * Start server
      * @return {Promise<any>}
      */
-    public init(): Promise<any>{
+    public init(): Promise<any> {
         // resolve on server setup completed
         return new Promise((resolve) => {
             this.setupServer(resolve);
@@ -55,21 +54,21 @@ export class ServerModule {
      * Returns ip server is operating on
      * @returns {string}
      */
-    protected getIp(): string{
+    protected getIp(): string {
         const networkInterfaces = os.networkInterfaces();
         const ips: string[] = [];
 
         // Extract IP
         Object.keys(networkInterfaces)
-              .forEach((name) => {
-                  networkInterfaces[name].forEach((networkInterface) => {
-                      if ('IPv4' !== networkInterface.family || networkInterface.internal){
-                          // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-                          return;
-                      }
-                      ips.push(networkInterface.address);
-                  });
-              });
+            .forEach((name) => {
+                networkInterfaces[name].forEach((networkInterface) => {
+                    if ('IPv4' !== networkInterface.family || networkInterface.internal) {
+                        // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+                        return;
+                    }
+                    ips.push(networkInterface.address);
+                });
+            });
 
         // get last one (as usually its 192...)
         return ips[ips.length - 1];
@@ -79,7 +78,7 @@ export class ServerModule {
      * Setup server
      * @param resolve
      */
-    protected setupServer(resolve: () => void){
+    protected setupServer(resolve: () => void) {
         // parse incoming bodies
         this.server.use(bodyParser.json());
 
@@ -118,9 +117,9 @@ export class ServerModule {
         request: Request,
         response: Response,
         next: NextFunction
-    ){
+    ) {
         response.status(404)
-                .send();
+            .send();
         response.end();
     }
 
@@ -136,9 +135,9 @@ export class ServerModule {
         request: Request,
         response: Response,
         next: NextFunction
-    ){
+    ) {
         response.status(500)
-                .send();
+            .send();
         response.end();
     }
 
@@ -152,7 +151,7 @@ export class ServerModule {
         request: Request,
         response: Response,
         next: NextFunction
-    ){
+    ) {
         // pass to balancer
         this.balancer.route(
             request,

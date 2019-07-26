@@ -1,5 +1,5 @@
-import {BaseRequestHandler, RequestMethods} from '@politician/server';
 import {NextFunction, Request, Response} from 'express';
+import {BaseRequestHandler, RequestMethods} from '../../../../src/server/modules/base-request-handler';
 
 export class SomeService extends BaseRequestHandler {
     // TODO: complete
@@ -14,11 +14,11 @@ export class SomeService extends BaseRequestHandler {
                 urlParams: { [paramName: string]: any }
             ) => {
                 response.status(200)
-                        .send({
-                            handler: 'some-url',
-                            endUrl: endUrl,
-                            urlParams: urlParams
-                        });
+                    .send({
+                        handler: 'some-url',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
             },
             methods: [RequestMethods.GET]
         },
@@ -31,11 +31,11 @@ export class SomeService extends BaseRequestHandler {
                 urlParams: { [paramName: string]: any }
             ) => {
                 response.status(200)
-                        .send({
-                            handler: 'another-url',
-                            endUrl: endUrl,
-                            urlParams: urlParams
-                        });
+                    .send({
+                        handler: 'another-url',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
             },
             methods: [RequestMethods.GET]
         },
@@ -48,11 +48,11 @@ export class SomeService extends BaseRequestHandler {
                 urlParams: { [paramName: string]: any }
             ) => {
                 response.status(200)
-                        .send({
-                            handler: 'yet-another-url',
-                            endUrl: endUrl,
-                            urlParams: urlParams
-                        });
+                    .send({
+                        handler: 'yet-another-url',
+                        endUrl: endUrl,
+                        urlParams: urlParams
+                    });
             },
             methods: [RequestMethods.GET]
         }

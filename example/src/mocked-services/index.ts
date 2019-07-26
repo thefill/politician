@@ -1,5 +1,6 @@
 export * from './some-service';
-import {BaseRequestHandler, StoreModule} from '@politician/server';
+import {BaseRequestHandler} from '../../../src/server/modules/base-request-handler';
+import {StoreModule} from '../../../src/server/modules/store';
 import {SomeService} from './some-service';
 
 /**
