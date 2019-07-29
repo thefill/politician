@@ -6,3 +6,4 @@ import {availableServices} from './mocked-services';
 const app = new Politician({
     availableRequestServices: availableServices
 });
+app.init();

@@ -18,7 +18,7 @@ export class Politician implements IInjection {
     public initialised = false;
     protected availableRequestServices: StoreService<new (store: StoreService<any>) => BaseRequestHandler>;
     protected port = 3000;
-    protected urlBase = 'api';
+    protected urlBase = '';
     protected dashboardEnabled = true;
     // Main server
     protected serverService: ServerService;
@@ -65,7 +65,7 @@ export class Politician implements IInjection {
         // get service summary, exclude dashboard service
         const summary = this.balancerService.getAvailableMocks();
         // .filter((available) => {
-        //     return available.basePath !== this.dashboardService.basePath;
+        //     return available.basePath !== DashboardService.basePath;
         // });
         this.printSummary(summary);
         this.initialised = true;
@@ -78,9 +78,14 @@ export class Politician implements IInjection {
     protected printSummary(
         available: IRequestHandlerSummary[]
     ) {
+        // exclude dashboard request service
+        const printableServices = available.filter((entry) => {
+            return entry.basePath !== DashboardService.basePath;
+        });
+
         // parse available mocked-services to colorful list
         // TODO: add methods available for urls
-        const parsedAvailable = available.map((service) => {
+        const parsedAvailable = printableServices.map((service) => {
             // prettify name
             const name = color.magenta(` ⇄ ${service.basePath}/\r\n`);
             // prettify endpoints
@@ -108,10 +113,10 @@ export class Politician implements IInjection {
         if (this.dashboardEnabled) {
             console.log(color.grey('Dashboard url:'));
             console.log(
-                color.green(`http://localhost:${this.serverService.port as any}/${this.dashboardService.basePath}`),
+                color.green(`http://localhost:${this.serverService.port as any}${baseUrl}/${DashboardService.basePath}`),
                 color.grey('|'),
                 color.green(
-                    `http://${this.serverService.ip}:${this.serverService.port as any}/${this.dashboardService.basePath}`),
+                    `http://${this.serverService.ip}:${this.serverService.port as any}${baseUrl}/${DashboardService.basePath}`),
                 '\r\n'
             );
         }

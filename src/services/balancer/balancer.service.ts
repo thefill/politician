@@ -48,13 +48,11 @@ export class BalancerService implements IInjection {
         // TODO: what about websocket???
         // get request method and url without base
         const method: RequestMethods = request.method as RequestMethods;
-        const url = request.url.substr(this.baseUrl.length + 2);
+        // compensate for base url
+        const url = this.baseUrl ? request.url.substr(this.baseUrl.length + 2) : request.url.substr(1);
 
         // find service handler for matching url and let it handle request from there, else 404
-        const endpointConfig = this.findEndpoint(
-            method,
-            url
-        );
+        const endpointConfig = this.findEndpoint(method, url);
         if (endpointConfig && endpointConfig.endpoint) {
             endpointConfig.endpoint.handler(
                 request,
@@ -95,11 +93,13 @@ export class BalancerService implements IInjection {
     ): IEndpointMatchResult | void {
         const urlPartials = url.split('/');
 
+        console.log(urlPartials);
         // get first service that have base path
         const serviceKey = this.serviceStore.keys()
             .find((key) => {
                 return this.serviceStore.get(key).basePath === urlPartials[0];
             });
+
         if (!serviceKey) {
             return;
         }
@@ -129,6 +129,7 @@ export class BalancerService implements IInjection {
                     return false;
                 }
             });
+
         if (!endpointKey) {
             return;
         }

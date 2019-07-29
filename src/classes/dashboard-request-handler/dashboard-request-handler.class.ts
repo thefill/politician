@@ -1,5 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {RequestMethods} from '../../enums';
+import {DashboardService} from '../../services/dashboard';
 import {BaseRequestHandler} from '../base-request-handler';
 
 // TODO: server should serve app on /dashboard/ that allows:
@@ -8,7 +9,7 @@ import {BaseRequestHandler} from '../base-request-handler';
 // - changing response code per endpoint
 export class DashboardRequestHandler extends BaseRequestHandler {
     // TODO: complete
-    public basePath = 'dashboard';
+    public basePath = DashboardService.basePath;
     public endpoints = {
         '/': {
             handler: (

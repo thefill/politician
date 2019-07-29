@@ -85,10 +85,8 @@ export class ServerService implements IInjection {
         this.server.use(cors());
 
         // serve any trafic that hits urlBase and pass to generic handler
-        this.server.all(
-            `/${this.urlBase}/*`,
-            this.handleAll.bind(this)
-        );
+        const catchAllPattern = this.urlBase ? `/${this.urlBase}/*` : `*`;
+        this.server.all(catchAllPattern, this.handleAll.bind(this));
 
         // default error handler
         this.server.use(this.errorHandler.bind(this));
